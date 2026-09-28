@@ -45,6 +45,25 @@ namespace UnityEngine.UI.Extensions
                 if (OnUpdate != null)
                     OnUpdate();
             }
+        } 
+        
+        [SerializeField]
+        private Color _color;
+        /// <summary>
+        /// Image component of the Item
+        /// </summary>
+        public Color Color
+        {
+            get
+            {
+                return _color;
+            }
+            set
+            {
+                _color = value;
+                if (OnUpdate != null)
+                    OnUpdate();
+            }
         }
 
         [SerializeField]
@@ -89,12 +108,13 @@ namespace UnityEngine.UI.Extensions
         /// <param name="image"></param>
         /// <param name="disabled">Should the item start disabled</param>
         /// <param name="onSelect">UnityAction to be called when this item is selected</param>
-        public DropDownListItem(string caption = "", string inId = "", Sprite image = null, bool disabled = false, UnityAction onSelect = null)
+        public DropDownListItem(string caption = "", string inId = "", Sprite image = null, bool disabled = false, UnityAction onSelect = null, in Color color = default)
         {
             _caption = caption;
             _image = image;
             _id = inId;
             _isDisabled = disabled;
+            _color = color;
             OnSelect = onSelect;
         }
     }

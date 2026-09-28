@@ -2,6 +2,7 @@
 ///Credit Martin Nerurkar // www.martin.nerurkar.de // www.sharkbombs.com
 ///Sourced from - http://www.sharkbombs.com/2015/02/10/tooltips-with-the-new-unity-ui-ugui/
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 namespace UnityEngine.UI.Extensions
 {
@@ -12,6 +13,9 @@ namespace UnityEngine.UI.Extensions
         [TextAreaAttribute]
         public string text;
 
+        public float Delay;
+        public UnityEvent OnShow = new UnityEvent();
+        
         public enum TooltipPositioningType {
             mousePosition,
             mousePositionAndFollow,
@@ -30,6 +34,9 @@ namespace UnityEngine.UI.Extensions
 
         public Vector3 offset;
 
+        protected WaitForSeconds delay;
+
+        protected Coroutine countdown;
 
         void Start() {
             //attempt to check if our canvas is overlay or not and check our "is overlay" accordingly
@@ -53,6 +60,12 @@ namespace UnityEngine.UI.Extensions
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            this.countdown = StartCoroutine(StartCountdown(eventData));
+        }
+        
+        protected IEnumerator StartCountdown(PointerEventData eventData) {
+            yield return delay;
+            this.OnShow?.Invoke();
             switch (tooltipPositioningType) {
                 case TooltipPositioningType.mousePosition:
                     StartHover(UIExtensionsInputManager.MousePosition + offset, true);
@@ -85,7 +98,12 @@ namespace UnityEngine.UI.Extensions
         }
 
         public void OnPointerExit(PointerEventData eventData)
-        {
+        { 
+            if (this.countdown != null) {
+                StopCoroutine(this.countdown);
+                this.countdown = null;
+            }
+            
             StopHover();
         }
 

@@ -512,20 +512,6 @@ namespace UnityEngine.UI.Extensions
             // use tangent and start and end time to derive control point 2 and 3
         }
 
-        public override void ModifyMesh(Mesh _mesh)
-        {
-
-            if (!IsActive())
-                return;
-
-            using (VertexHelper vh = new VertexHelper(_mesh))
-            {
-                ModifyMesh(vh);
-                vh.FillMesh(_mesh);
-            }
-
-        }
-
         public override void ModifyMesh(VertexHelper _vh)
         {
 

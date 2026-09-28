@@ -41,11 +41,6 @@ namespace UnityEngine.UI.Extensions
         private bool m_useNativeSize;
         public bool UseNativeSize { get { return m_useNativeSize; } set { m_useNativeSize = value; SetAllDirty(); } }
 
-        protected UIPrimitiveBase()
-        {
-            useLegacyMeshGeneration = false;
-        }
-
         /// <summary>
         /// Default material used to draw everything if no explicit material was specified.
         /// </summary>
@@ -212,6 +207,7 @@ namespace UnityEngine.UI.Extensions
         public virtual void CalculateLayoutInputVertical() { }
 
         public virtual float minWidth { get { return 0; } }
+        public float maxWidth { get; }
 
         public virtual float preferredWidth
         {
@@ -226,6 +222,7 @@ namespace UnityEngine.UI.Extensions
         public virtual float flexibleWidth { get { return -1; } }
 
         public virtual float minHeight { get { return 0; } }
+        public float maxHeight { get; }
 
         public virtual float preferredHeight
         {

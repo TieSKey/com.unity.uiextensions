@@ -298,7 +298,7 @@ namespace UnityEngine.UI.Extensions
 		/// <summary>
 		/// Rebuilds the contents of the panel in response to items being added.
 		/// </summary>
-		private void RebuildPanel()
+		public void RebuildPanel()
 		{
 			if (Items.Count == 0) return;
 
@@ -343,7 +343,7 @@ namespace UnityEngine.UI.Extensions
 			}
 		}
 
-		private void OnItemClicked(int indx)
+		public void OnItemClicked(int indx)
 		{
 			//Debug.Log("item " + indx + " clicked");
 			if (indx != _selectedIndex && OnSelectionChanged != null) OnSelectionChanged.Invoke(indx);
